@@ -621,7 +621,11 @@ class EventsPlannerState extends State<EventsPlanner> {
     if (context.mounted) {
       // stop scroll listener for avoid change day listener
       _listenHorizontalScrollDayChange = false;
-      var index = date.withoutTime.getDayDifference(initialDate);
+      
+      //var index = date.withoutTime.getDayDifference(initialDate);
+      // SOLUCIÓN CORREGIDA: Usar el método seguro de diferencia de días
+      var index = date.getDayDifference(initialDate);
+      
       mainHorizontalController.jumpTo(index * dayWidth);
       _listenHorizontalScrollDayChange = true;
     }
