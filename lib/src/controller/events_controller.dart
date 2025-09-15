@@ -22,6 +22,9 @@ class EventsController extends ChangeNotifier {
   // call when focused day change
   void Function(DateTime day)? onFocusedDayChange;
 
+  // call when jump to date is requested
+  void Function(DateTime date)? onJumpToDateRequested;
+
   /// modify event data and update UI
   void updateCalendarData(UpdateCalendarDataCallback fn) {
     fn.call(calendarData);
@@ -37,6 +40,15 @@ class EventsController extends ChangeNotifier {
   updateFocusedDay(DateTime day) {
     focusedDay = day;
     onFocusedDayChange?.call(day);
+  }
+
+  /// Jump to a specific date in all connected views
+  /// This method notifies all EventsPlanner and EventsList widgets to jump to the specified date
+  void jumpToDate(DateTime date) {
+    focusedDay = date.withoutTime;
+    onFocusedDayChange?.call(focusedDay);
+    onJumpToDateRequested?.call(date);
+    notifyListeners();
   }
 
   // get events for day with filter applied

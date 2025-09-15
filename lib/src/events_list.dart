@@ -90,6 +90,13 @@ class EventsListState extends State<EventsList> {
         widget.initialDate?.withoutTime ?? widget.controller.focusedDay;
     stickyDay = initialDay;
     mainVerticalController = ScrollController();
+
+    // Listen for jump to date requests from controller
+    widget.controller.onJumpToDateRequested = (date) {
+      if (mounted) {
+        jumpToDate(date);
+      }
+    };
   }
 
   @override

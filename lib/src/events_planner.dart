@@ -165,6 +165,13 @@ class EventsPlannerState extends State<EventsPlanner> {
       initialScrollOffset: widget.initialVerticalScrollOffset,
     );
 
+    // Listen for jump to date requests from controller
+    _controller.onJumpToDateRequested = (date) {
+      if (mounted) {
+        jumpToDate(date);
+      }
+    };
+
     // synchronize horizontal scroll between days events / full day events / days header
     if (widget.daysHeaderParam.daysHeaderVisibility ||
         widget.fullDayParam.fullDayEventsBarVisibility) {
